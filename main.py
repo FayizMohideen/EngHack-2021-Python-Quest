@@ -106,7 +106,7 @@ def startup():
     if message.content.startswith("!help"):
       embedVar = discord.Embed(title = "Roommate Matcher Bot", description = "Streamlining the roommate finding process!")
       embedVar.add_field(name="!info", value="Use this command to find any extra information a potential roommate has added for you to know!", inline=False)
-      embedVar.add_field(name="!find roommate", value="Use this command to search for potentially compatible roommates! Input your own information, and the system will search for matches that have the same stream, gender and residence preferences (and program, if you want)! \n***Example: !find roommate John Smith, Y, JohnSmith@gmail.com, Male, 8, CMH, UWP, MKV***")
+      embedVar.add_field(name="!find roommate", value="Use this command to search for potentially compatible roommates! Input your own information, and the system will search for matches that have the same stream, gender and residence preferences (and program, if you want)! \n***Example: !find roommate John Smith, Y, JohnSmith@gmail.com, Male, Mechanical Engineering, 8, CMH, UWP, MKV***")
       await message.channel.send(embed = embedVar)
     if message.content.startswith("!info"):
       try:
@@ -173,7 +173,7 @@ def startup():
           await message.channel.send(embed = embedVar)
       except IndexError as e:
         print(e)
-        embedVar = discord.Embed(title = "Error", description = "Please enter only the correct amount of parameters (firstname, lastname, y/n to compare programs, contact info, gender, program, stream, top res choice, second res choice, third res choice.\n\n***Example: !find roommate John Smith, Y, JohnSmith@gmail.com, Male, 8, CMH, UWP, MKV***")
+        embedVar = discord.Embed(title = "Error", description = "Please enter only the correct amount of parameters (firstname, lastname, y/n to compare programs, contact info, gender, program, stream, top res choice, second res choice, third res choice.\n\n***Example: !find roommate John Smith, Y, JohnSmith@gmail.com, Male, Mechanical Engineering, 8, CMH, UWP, MKV***")
         await message.channel.send(embed = embedVar)
         
 
