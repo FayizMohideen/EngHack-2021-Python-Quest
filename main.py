@@ -34,7 +34,9 @@ def main():
     check_program = False
     check_program = bool_answer(input("Do you want to match with your program? Y/N. "))
     # Matches found
-    list_of_matches = []
+    list_of_first_matches = []
+    list_of_second_matches = []
+    list_of_third_matches = []
     # Look for user in CSV.
     name_check = contains_user(responseName)
     
@@ -62,13 +64,34 @@ def main():
               if check_program:
                 if program == parse_program(row[5]):
                   current_match = Class_feature.Response(row[1], row[3], row[4], row[5], row[6], row[8], row[10], row[12])
-                  list_of_matches.append(current_match)
+                  if second_choice == parse_res_choice(row[10]):
+                    if third_choice == parse_res_choice(row[12]):
+                      list_of_third_matches.append(current_match)
+                    else:
+                      list_of_second_matches.append(current_match)
+                  else:
+                    list_of_first_matches.append(current_match)
               # Checks for matches in gender, stream and top choice, regardless of program.
               else:
-                current_match = Class_feature.Response(row[1], row[3], row[4], row[5], row[6], row[8])
-                list_of_matches.append(current_match)
-    for match in list_of_matches:
-      print(f"Match: \n\tName: {match.name}\n\tContact info: {match.contact}\n\tProgram: {match.program}")
+                current_match = Class_feature.Response(row[1], row[3], row[4], row[5], row[6], row[8], row[10], row[12])
+                if second_choice == parse_res_choice(row[10]):
+                  if third_choice == parse_res_choice(row[12]):
+                    list_of_third_matches.append(current_match)
+                  else:
+                    list_of_second_matches.append(current_match)
+                else:
+                  list_of_first_matches.append(current_match)
+    print("All three top residences match: ")
+    for match in list_of_third_matches:
+      print(f"\n\tName: {match.name}\n\tContact info: {match.contact}\n\tProgram: {match.program}")
+
+    print("Only 2 top residences match: ")
+    for match in list_of_second_matches:
+      print(f"\n\tName: {match.name}\n\tContact info: {match.contact}\n\tProgram: {match.program}")
+
+    print("Only 1 top residence match:")
+    for match in list_of_first_matches:
+      print(f"\n\tName: {match.name}\n\tContact info: {match.contact}\n\tProgram: {match.program}")
 
     
     run_program = bool_answer(input("Would you like to run again? Y/N "))
