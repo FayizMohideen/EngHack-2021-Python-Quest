@@ -101,9 +101,29 @@ def startup():
   async def on_ready():
     print('I am {0.user}'.format(client))
 
-
   @client.event
   async def on_message(message):
+    if message.content.startswith("!info"):
+      try:
+        inputted_name = message.content[6:]
+        name_found = False
+        with open("Responses.csv") as responses:
+          reader = csv.reader(responses)
+          next(reader)
+          for row in reader:
+            # Checking is user is already in CVS
+            if row[1] == inputted_name:
+              info = "Information about " + inputted_name + ": \n\t" + row[15]
+              if len(row[15]) == 0:
+                info = "No information added for this person."
+              embedVar = discord.Embed(title = "Matches found: ", description = info)
+              await message.channel.send(embed = embedVar)
+              name_found = True
+          if not name_found:
+            embedVar = discord.Embed(title = "Matches found: ", description = "Name not found in database. Make sure to just enter their full name and nothing else.")
+            await message.channel.send(embed = embedVar)
+      except:
+        print("error!")
     if message.content.startswith("!find roommate"):
       try:
         # Gathers only the parameters in remove_comma
