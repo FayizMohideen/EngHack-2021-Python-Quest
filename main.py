@@ -103,6 +103,11 @@ def startup():
 
   @client.event
   async def on_message(message):
+    if message.content.startswith("!help"):
+      embedVar = discord.Embed(title = "Roommate Matcher Bot", description = "Streamlining the roommate finding process!")
+      embedVar.add_field(name="!info", value="Use this command to find any extra information a potential roommate has added for you to know!", inline=False)
+      embedVar.add_field(name="!find roommate", value="Use this command to search for potentially compatible roommates! Input your own information, and the system will search for matches that have the same stream, gender and residence preferences (and program, if you want)! \n***Example: !find roommate John Smith, Y, JohnSmith@gmail.com, Male, 8, CMH, UWP, MKV***")
+      await message.channel.send(embed = embedVar)
     if message.content.startswith("!info"):
       try:
         inputted_name = message.content[6:]
